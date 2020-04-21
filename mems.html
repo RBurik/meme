@@ -353,24 +353,24 @@
           Облачное SEO - белее не бывает!<br>
           <br>
           <br>
-        </div><button class="modal-switch" ><img src='/blog_html/index/promo/mems/photo_2020-04-16_13-15-42-.jpg'
-             style='max-width:200px;max-height:200px;margin:10px;'></button>
-              <button class="modal-switch">
+        </div><button class="modal-switch" onclick="myFunction(1)"><img src='/blog_html/index/promo/mems/photo_2020-04-16_13-15-42-.jpg'
+             style='max-width:200px;max-height:200px;margin:10px;' id="mem_1"></button>
+              <button class="modal-switch" onclick="myFunction(2)">
                   <img
                   src='/blog_html/index/promo/mems/photo_2020-04-18_00-03-40.jpg'
-                  style='max-width:200px;max-height:200px;margin:10px;'>
-             </button> <button class="modal-switch">
+                  style='max-width:200px;max-height:200px;margin:10px;' id="mem_2">
+             </button> <button class="modal-switch" onclick="myFunction(3)">
                   <img
                   src='/blog_html/index/promo/mems/photo_2020-04-18_00-03-52.jpg'
-                  style='max-width:200px;max-height:200px;margin:10px;'> 
-             </button><button class="modal-switch">
+                  style='max-width:200px;max-height:200px;margin:10px;' id="mem_3"> 
+             </button><button class="modal-switch" onclick="myFunction(4)">
                   <img
                   src='/blog_html/index/promo/mems/photo_2020-04-18_00-04-12.jpg'
-                  style='max-width:200px;max-height:200px;margin:10px;'>
-             </button> <button class="modal-switch">
+                  style='max-width:200px;max-height:200px;margin:10px;' id="mem_4">
+             </button> <button class="modal-switch" onclick="myFunction(5)">
                   <img
                   src='/blog_html/index/promo/mems/photo_2020-04-18_00-30-27.jpg'
-                  style='max-width:200px;max-height:200px;margin:10px;'>
+                  style='max-width:200px;max-height:200px;margin:10px;' id="mem_5">
              </button></div>
       </div>
       <div class="software-header software-headermob"
@@ -447,10 +447,11 @@
   <div class="modal-mem">
     <div class="modal-mem-dialog">
       <div class="modal-mem-header">
-        <button class="close-modal">&times;</button>
+        <button class="close-modal"><span class="close-img"></span></button>
         <p class="linkify-marker"
-           style="padding-top: 5px;"><img src='/blog_html/index/promo/mems/photo_2020-04-18_00-30-27.jpg'
-             style='max-width:100%;max-height:100%;margin:10px;'><br>
+           style="padding-top: 5px;">
+           <div id="img-place"></div>
+             <br>
         Я готов БЕСПЛАТНО, в течении двух недель, заниматься продвижением Вашего сайта. Именно такой срок необходим что бы был виден результат. Дальше решение за Вами, остались довольны результатом, продолжаем сотрудничать.<br>
         <br>
         Анализ сайта и консультация бесплатно.<br>
@@ -476,7 +477,8 @@
                         onclick="this.focus(); this.select();"
                         readonly
                         rows="10"
-                        style="background-color: #FFFFFF; color: #999999;">
+                        style="background-color: #FFFFFF; color: #999999;"
+                        name="text_html">
             
             <p class="linkify-marker" style="padding-top: 5px;">
             <img style='max-width:100%;max-height:100%;margin:10px;' src='/blog_html/index/promo/mems/photo_2020-04-18_00-30-27.jpg'>
@@ -501,7 +503,8 @@
                       onclick="this.focus(); this.select();"
                       readonly
                       rows="10"
-                      style="background-color: #FFFFFF; color: #999999;">
+                      style="background-color: #FFFFFF; color: #999999;"
+                      name="text_php">
            
           [img]/blog_html/index/promo/mems/photo_2020-04-18_00-30-27.jpg[/img]
           [br]
@@ -532,6 +535,12 @@
         .modal-switch {
             border: none;
             background-color: transparent;
+            border: rgba(0, 0, 0, 0) solid 2px;
+            border-radius: 15px;
+        }
+        .modal-switch:hover {
+            transition: .5s;
+              border: #1257a6 solid 2px;
         }
         .modal-mem {
               position: fixed;
@@ -558,16 +567,87 @@
             padding: 30px;
         }
         .close-modal {
+              position: relative;
+              margin-left: 90%;
+            height: 33px;
+            width: 33px;
             font-size: 36px;
             border: none;
             background-color: transparent;
         }
+        .close-img {
+            position: absolute;
+            float: right;
+            font-size: 21px;
+            font-weight: bold;
+            line-height: 1;
+            color: #000;
+            text-shadow: 0 1px 0 #fff;
+            filter: alpha(opacity=20);
+            opacity: .2;
+        }
+        .close-img:before {
+            transform: rotate(45deg);
+      }
+      .close-img:after {
+            transform: rotate(-45deg);
+      }
+      .close-img:before, .close-img:after {
+            position: absolute;
+            left: 15px;
+            content: ' ';
+            height: 33px;
+            width: 3px;
+            background-color: #f00;
+      }
   </style>
 
 
 
       <!-- modal-roman -->
   <script>
+        document.addEventListener('keydown', function(e) {
+            let keyCode = e.keyCode;
+        
+        if (keyCode === 27) {
+            modal.classList.toggle('is-open');
+        }
+      });
+        const modalAmn = document.getElementsByClassName('modal-switch');            // Amount of elements with class .modal-switch
+            function myFunction(i) {
+                  window.imageMem = document.getElementById('mem_'+i).getAttribute('src');
+                  var imgPlace = document.getElementById("img-place");
+                  imgPlace.innerHTML="<img src=" + window.imageMem +" style='max-width:100%;max-height:100%;margin:10px;'>";
+                  document.querySelector("textarea[name=text_html]").value=    '<p class="linkify-marker" style="padding-top: 5px;">\n'+
+                                                                              "<img style='max-width:100%;max-height:100%;margin:10px;' src="+window.imageMem+'>\n'+
+                                                                              '<br>\n'+
+                                                                              'Я готов БЕСПЛАТНО, в течении двух недель, заниматься продвижением Вашего сайта. Именно такой срок необходим что бы был виден результат. Дальше решение за Вами, остались довольны результатом, продолжаем сотрудничать. <br>\n'+
+                                                                              '<br>\n'+
+                                                                              'Анализ сайта и консультация бесплатно. <br>\n'+
+                                                                              '+38 098 132 00 68 <br>\n'+
+                                                                              '+38 063 132 00 68 (Viber, Telegram) <br>\n'+
+                                                                              'Skype: Игорь TRAFLINKS <br>\n'+
+                                                                              '<br>\n'+
+                                                                              'Сайты: <a href="https://traflinks.com" class="no-external-marker" target="_blank" rel="nofollow noopener">https://traflinks.com</a> и <a href="http://os.zp.ua" class="no-external-marker" target="_blank" rel="nofollow noopener">http://os.zp.ua</a> <br>\n'+
+                                                                              'Предоставлю полный пакет документов для бухгалтерии, по оказанным услугам <br>\n'+
+                                                                              '</p>';
+                  document.querySelector("textarea[name=text_php]").value=    '[img]'+window.imageMem+'[/img]\n'+
+                                                                              '[br]\n'+
+                                                                              'Я готов БЕСПЛАТНО, в течении двух недель, заниматься продвижением Вашего сайта. Именно такой срок необходим что бы был виден результат. Дальше решение за Вами, остались довольны результатом, продолжаем сотрудничать.\n'+
+                                                                              '[br][br]\n'+
+                                                                              'Анализ сайта и консультация бесплатно.\n'+
+                                                                              '[br]\n'+
+                                                                              '+38 098 132 00 68\n'+
+                                                                              '[br]\n'+
+                                                                              '+38 063 132 00 68 (Viber, Telegram)[br]\n'+
+                                                                              'Skype: Игорь TRAFLINKS\n'+
+                                                                              '[br]\n'+
+                                                                              '[br]\n'+
+                                                                              'Сайты: https://traflinks.com и http://os.zp.ua\n'+
+                                                                              '[br]\n'+
+                                                                              'Предоставлю полный пакет документов для бухгалтерии, по оказанным услугам';
+            }
+            
         const modalSwitch = document.querySelector(".modal-switch");
         const modal = document.querySelector(".modal-mem");
         const close = document.querySelector(".close-modal");
@@ -580,7 +660,6 @@
         modal.classList.toggle("is-open");
         }
 
-        const modalAmn = document.getElementsByClassName('modal-switch');            // Amount of elements with class .modal-switch
         for (var i = 0; i < modalAmn.length; i++) {
             modalAmn[i].addEventListener('click', toggleModal)
 }
